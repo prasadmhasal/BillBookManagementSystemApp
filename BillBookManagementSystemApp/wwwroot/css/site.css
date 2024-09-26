@@ -198,3 +198,10 @@ input[type="submit"] {
     color: #fff;
     border: none;
 }
+#otpContainer {
+    margin-top: 10px;
+}
+
+.text {
+    color: whitesmoke;
+}
