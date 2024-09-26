@@ -1,0 +1,132 @@
+﻿@{
+    Layout = "~/Views/Shared/LoginLayout.cshtml";
+}
+@model OtpModel
+
+<style>
+    #otpContainer {
+        margin-top: 10px;
+    }
+
+    .text {
+        color: whitesmoke;
+    }
+</style>
+
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Toggle right offcanvas</button>
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+        <h5 id="offcanvasRightLabel"></h5>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close" onclick="resetForm()"></button>
+    </div>
+    <div class="offcanvas-body">
+        <section class="wrapper">
+            <div class="form signup">
+                <header>Login</header>
+                <form method="post" id="loginForm">
+                    <input type="text" id="email" name="Email" asp-for="Email" placeholder="Email" required />
+                    <div id="otpContainer" style="display: none;">
+                        <input type="text" id="otp" name="Otp" asp-for="Otp" placeholder="OTP" required />
+                        <p id="timer" class="text" style="display: none;"></p>
+                        <input type="submit" value="Verify OTP" onclick="verifyOtp(event)" />
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="signupCheck" />
+                        <label for="signupCheck">I accept all terms & conditions</label>
+                    </div>
+                    <input type="button" value="Send OTP" onclick="requestOtp()" />
+                    
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+    let timerInterval;
+
+    function requestOtp() {
+        const emailInput = document.getElementById('email').value;
+
+        // AJAX request to send OTP with email as a query parameter
+        $.ajax({
+            url: '/Login/RequestOtp?email=' + encodeURIComponent(emailInput), // Append email to URL
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.success) {
+                    alert(data.message);
+                    startTimer();
+                    document.getElementById('otpContainer').style.display = 'block'; // Show OTP input
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+                alert('An error occurred while sending the OTP.');
+            }
+        });
+    }
+
+
+    function startTimer() {
+        let timeLeft = 120; // 2 minutes in seconds
+        updateTimerDisplay(timeLeft);
+
+        timerInterval = setInterval(function () {
+            timeLeft--;
+            updateTimerDisplay(timeLeft);
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert('Time is up! Please request a new OTP.');
+                resetForm();
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay(timeLeft) {
+        const timerDisplay = document.getElementById('timer');
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        timerDisplay.textContent = `You have ${minutes}m ${seconds}s to enter the OTP.`;
+        timerDisplay.style.display = 'block'; // Ensure timer is visible
+    }
+
+    function verifyOtp() {
+        const otpInput = document.getElementById('otp').value;
+
+        // AJAX request to verify OTP with OTP as a query parameter
+        $.ajax({
+            url: '/Login/VerifyOtp?otp=' + encodeURIComponent(otpInput), // Append OTP to URL
+            type: 'POST',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.success) {
+                    window.location.href = data.redirectUrl; // Redirect on success
+                } else {
+                    alert(data.message); // Show error message
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.error('Error:', textStatus, errorThrown);
+                alert('An error occurred while verifying the OTP.');
+            }
+        });
+    }
+
+
+    function resetForm() {
+        clearInterval(timerInterval); // Clear timer
+        const otpContainer = document.getElementById("otpContainer");
+        otpContainer.style.display = 'none';
+        document.getElementById('loginForm').reset(); // Reset form fields
+    }
+</script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/js/site.js"></script>

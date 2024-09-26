@@ -1,0 +1,200 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+.wrapper {
+    position: relative;
+  
+    width: 100%;
+    border-radius: 12px;
+    padding: 20px 30px 120px;
+    
+    background: rgba(68,138,255,0.5) ;
+    box-shadow: 0 5px 10px rgba( 0, 0, 0, 0.1 );
+    overflow: hidden;
+    background-image: url('../images/breadcrumb-bg.jpg');
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+.wrapper {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    padding: 20px 30px 120px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+    /* Add a pseudo-element for the background color */
+    .wrapper::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(68, 138, 255, 0.5); /* Your semi-transparent color */
+        border-radius: 12px; /* Match the border radius of the wrapper */
+        z-index: 1; /* Place it below content */
+    }
+
+    .wrapper img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px; /* Ensure image respects border radius */
+        z-index: 0; /* Ensure image is below the pseudo-element */
+    }
+
+    .wrapper > * {
+        position: relative; /* Ensure child elements are above the pseudo-element */
+        z-index: 2; /* Place content above background */
+    }
+
+
+.form.login {
+    position: absolute;
+    left: 50%;
+    bottom: -86%;
+    transform: translateX( -50% );
+    width: calc( 100% + 220px );
+    padding: 20px 140px;
+    border-radius: 50%;
+    height: 100%;
+    background: #fff;
+    transition: all 0.6s ease;
+}
+
+.wrapper.active
+.form.login {
+    bottom: -15%;
+    border-radius: 35%;
+    box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form
+header {
+    font-size: 30px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.form.login
+header {
+    color: #333;
+    opacity: 0.6;
+}
+
+.wrapper.active
+.form.login
+header {
+    opacity: 1;
+}
+
+.wrapper.active
+.signup
+header {
+    opacity: 0.6;
+}
+
+.wrapper
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 40px;
+}
+
+form
+input {
+    height: 60px;
+    outline: none;
+    border: none;
+    padding: 0 15px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    border-radius: 8px;
+    background: #fff;
+}
+
+.form.login
+input {
+    border: 1px solid #aaa;
+}
+
+    .form.login
+    input:focus {
+        box-shadow: 0 1px 0 #ddd;
+    }
+
+form
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox
+input[type="checkbox"] {
+    height: 16px;
+    width: 16px;
+    accent-color: #fff;
+    cursor: pointer;
+}
+
+form
+.checkbox
+label {
+    cursor: pointer;
+    color: #fff;
+}
+
+form a {
+    color: #333;
+    text-decoration: none;
+}
+
+    form
+    a:hover {
+        text-decoration: underline;
+    }
+
+form
+input[type="submit"] {
+    margin-top: 15px;
+    padding: none;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.form.login
+input[type="submit"] {
+    background: #4070f4;
+    color: #fff;
+    border: none;
+}

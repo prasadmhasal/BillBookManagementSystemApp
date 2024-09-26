@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BillBookManagementSystemApp", "BillBookManagementSystemApp\BillBookManagementSystemApp.csproj", "{0B70D171-9C7C-4694-A9A9-7380DDEBA517}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B70D171-9C7C-4694-A9A9-7380DDEBA517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B70D171-9C7C-4694-A9A9-7380DDEBA517}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B70D171-9C7C-4694-A9A9-7380DDEBA517}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B70D171-9C7C-4694-A9A9-7380DDEBA517}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EE163B64-CD30-451B-BA1C-1C463306EAF4}
+	EndGlobalSection
+EndGlobal
