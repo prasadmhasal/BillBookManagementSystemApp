@@ -21,15 +21,15 @@
                 <form method="post" id="loginForm">
                     <input type="text" id="email" name="Email" asp-for="Email" placeholder="Email" required />
                     <div id="otpContainer" style="display: none;">
-                        <input type="text" id="otp" name="Otp" asp-for="Otp" placeholder="OTP" required />
+                        <input type="text" class="form-control" id="otp" name="Otp" asp-for="Otp" placeholder="OTP" required />
                         <p id="timer" class="text" style="display: none;"></p>
-                        <input type="submit" value="Verify OTP" onclick="verifyOtp(event)" />
+                        <input type="submit" class="form-control" value="Verify OTP" onclick="verifyOtp(event)" />
                     </div>
-                    <div class="checkbox">
+                    <div class="checkbox" id="check">
                         <input type="checkbox" id="signupCheck" />
                         <label for="signupCheck">I accept all terms & conditions</label>
                     </div>
-                    <input type="button" value="Send OTP" onclick="requestOtp()" />
+                    <input type="button" id="sendotp"  value="Send OTP" onclick="requestOtp()" />
                     
                 </form>
             </div>
@@ -42,16 +42,18 @@
     function requestOtp() {
         const emailInput = document.getElementById('email').value;
 
-        // AJAX request to send OTP with email as a query parameter
         $.ajax({
-            url: '/Login/RequestOtp?email=' + encodeURIComponent(emailInput), // Append email to URL
+            url: '/Login/RequestOtp?email=' + encodeURIComponent(emailInput), 
             type: 'POST',
             contentType: 'application/json',
             success: function (data) {
                 if (data.success) {
                     alert(data.message);
                     startTimer();
-                    document.getElementById('otpContainer').style.display = 'block'; // Show OTP input
+                    document.getElementById('otpContainer').style.display = 'block'; 
+                    document.getElementById('sendotp').style.display = 'none';
+                    document.getElementById('check').style.display = 'none';
+
                 } else {
                     alert('Error: ' + data.message);
                 }
@@ -65,7 +67,7 @@
 
 
     function startTimer() {
-        let timeLeft = 120; // 2 minutes in seconds
+        let timeLeft = 120; 
         updateTimerDisplay(timeLeft);
 
         timerInterval = setInterval(function () {
@@ -85,22 +87,22 @@
         const minutes = Math.floor(timeLeft / 60);
         const seconds = timeLeft % 60;
         timerDisplay.textContent = `You have ${minutes}m ${seconds}s to enter the OTP.`;
-        timerDisplay.style.display = 'block'; // Ensure timer is visible
+        timerDisplay.style.display = 'block'; 
     }
 
     function verifyOtp() {
         const otpInput = document.getElementById('otp').value;
 
-        // AJAX request to verify OTP with OTP as a query parameter
+       
         $.ajax({
-            url: '/Login/VerifyOtp?otp=' + encodeURIComponent(otpInput), // Append OTP to URL
+            url: '/Login/VerifyOtp?otp=' + encodeURIComponent(otpInput), 
             type: 'POST',
             contentType: 'application/json',
             success: function (data) {
                 if (data.success) {
-                    window.location.href = data.redirectUrl; // Redirect on success
+                    window.location.href = data.redirectUrl; 
                 } else {
-                    alert(data.message); // Show error message
+                    alert(data.message); 
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -112,10 +114,11 @@
 
 
     function resetForm() {
-        clearInterval(timerInterval); // Clear timer
+        clearInterval(timerInterval); 
         const otpContainer = document.getElementById("otpContainer");
         otpContainer.style.display = 'none';
-        document.getElementById('loginForm').reset(); // Reset form fields
+        document.getElementById('sendotp').style.display = 'block';
+        document.getElementById('loginForm').reset(); 
     }
 </script>
 
